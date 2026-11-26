@@ -1,0 +1,414 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>W2P Special Event Certificate | DVRA</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Libre+Baskerville:wght@400;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --navy: #172b45;
+    --navy-light: #263e5b;
+    --gold: #c6a15b;
+    --gold-light: #e0c78e;
+    --parchment: #f4eddd;
+    --ink: #292b2c;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+        radial-gradient(ellipse at top, #344a62 0%, #172b45 70%);
+    color: var(--ink);
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 45px 18px;
+}
+
+.container {
+    width: 100%;
+    max-width: 720px;
+    background: var(--parchment);
+    border: 1px solid var(--gold);
+    outline: 5px solid rgba(198,161,91,.16);
+    box-shadow: 0 18px 55px rgba(0,0,0,.4);
+    position: relative;
+}
+
+/* Decorative frame */
+
+.container::before {
+    content: "";
+    position: absolute;
+    inset: 9px;
+    border: 1px solid rgba(160,125,61,.55);
+    pointer-events: none;
+}
+
+.header {
+    background: var(--navy);
+    color: white;
+    text-align: center;
+    padding: 38px 25px 32px;
+    border-bottom: 4px solid var(--gold);
+}
+
+.organization {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 15px;
+}
+
+.header h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(28px, 5vw, 43px);
+    letter-spacing: 5px;
+    margin: 0;
+    font-weight: 700;
+}
+
+.header h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 17px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    color: var(--gold-light);
+    margin: 7px 0 0;
+}
+
+.header-rule {
+    width: 100px;
+    height: 1px;
+    background: var(--gold);
+    margin: 22px auto 0;
+}
+
+.content {
+    padding: 35px 45px 40px;
+    text-align: center;
+}
+
+.eyebrow {
+    color: #96763e;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.content h3 {
+    font-family: 'Cinzel', serif;
+    color: var(--navy);
+    font-size: 25px;
+    margin: 10px 0 15px;
+}
+
+.description {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 14px;
+    line-height: 1.9;
+    color: #55504a;
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+.event {
+    margin: 28px 0;
+    padding: 22px 15px;
+    border-top: 1px solid var(--gold);
+    border-bottom: 1px solid var(--gold);
+}
+
+.event-title {
+    font-family: 'Cinzel', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy);
+    letter-spacing: 1px;
+}
+
+.event-date {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 13px;
+    color: #8a6c36;
+    margin-top: 7px;
+}
+
+.form-intro {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 14px;
+    color: #55504a;
+    margin: 28px 0 22px;
+    text-align:left;
+}
+
+form {
+    max-width: 440px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.field {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    color: var(--navy);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.3px;
+    margin-bottom: 8px;
+}
+
+input {
+    width: 100%;
+    padding: 14px 15px;
+    background: #fffdf8;
+    border: 1px solid #c9bea7;
+    border-radius: 2px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    color: var(--ink);
+    transition: border-color .2s, box-shadow .2s;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(198,161,91,.15);
+}
+
+input::placeholder {
+    color: #aaa398;
+}
+
+button {
+    display: block;
+    width: 100%;
+    margin-top: 28px;
+    padding: 16px;
+    background: var(--navy);
+    color: white;
+    border: 1px solid var(--gold);
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: background .2s, color .2s;
+}
+
+button:hover {
+    background: var(--navy-light);
+    color: var(--gold-light);
+}
+
+.footer {
+    background: #e9dfca;
+    border-top: 1px solid #d1c09b;
+    padding: 23px;
+    text-align: center;
+    position: relative;
+}
+
+.footer strong {
+    display: block;
+    color: var(--navy);
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+.footer p {
+    font-size: 11px;
+    color: #716958;
+    margin: 7px 0 0;
+}
+
+.footer a {
+    color: var(--navy);
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.ornament {
+    color: var(--gold);
+    font-size: 19px;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 550px) {
+    body {
+        padding: 20px 12px;
+    }
+
+    .content {
+        padding: 30px 24px;
+    }
+
+    .header {
+        padding: 32px 15px;
+    }
+
+    .header h1 {
+        letter-spacing: 3px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <header class="header">
+        <div class="organization">
+            Delaware Valley Radio Association
+        </div>
+
+        <h1>W2P</h1>
+        <h2>Special Event Station</h2>
+
+        <div class="header-rule"></div>
+    </header>
+
+    <main class="content">
+
+        <div class="eyebrow">Commemorative Certificate</div>
+
+        <h3>Claim Your Certificate</h3>
+
+        <p class="description">
+            Thank you for participating in the W2P special event
+            station operated by the Delaware Valley Radio Association.
+            Celebrate your contact with this commemorative certificate
+            honoring an important moment in American history.
+        </p>
+
+        <div class="event">
+            <div class="ornament">✦</div>
+            <div class="event-title">
+                The Battle of Princeton
+            </div>
+            <div class="event-date">
+                January 3, 1777
+            </div>
+        </div>
+
+        <p class="form-intro">
+            Enter your name and call sign as you would
+            like them printed on your certificate.
+        </p>
+
+        <form action="/certificate-request">
+
+            <div class="field">
+                <label for="name">
+                    Name for Certificate
+                </label>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    maxlength="40"
+                    required
+                    autocomplete="name">
+            </div>
+
+            <div class="field">
+                <label for="callsign">
+                    Amateur Radio Call Sign
+                </label>
+                <input
+                    type="text"
+                    id="callsign"
+                    name="callsign"
+                    maxlength="10"
+                    required
+                    style="text-transform:uppercase">
+            </div>
+
+            <button type="button" id="generate-btn">
+                REQUEST MY CERTIFICATE
+            </button>
+
+        </form>
+
+    </main>
+
+    <footer class="footer">
+        <strong>Delaware Valley Radio Association</strong>
+        <p>
+            W2ZQ &nbsp;|&nbsp;
+            <a href="https://www.w2zq.com/">www.w2zq.com</a>
+        </p>
+        <p>Celebrating Amateur Radio and American History</p>
+        <p style="margin-top:12px; letter-spacing:2px;">
+            73!
+        </p>
+    </footer>
+
+</div>
+
+<script>
+    const template_url = 'w2p-cert-template-2027.pdf';
+    const pdf_title = 'W2ZQ W2P 2027 Certificate';
+    const field_name = 'output';
+    const download_file_name = 'w2zq-w2p-cert-2027.pdf';
+
+    document.getElementById('generate-btn').addEventListener('click', async () => {
+
+        const inputName = document.getElementById('name').value.trim();
+        const inputCallsign = document.getElementById('callsign').value.trim().toUpperCase();
+        const certificateText = `${inputName} ${inputCallsign}`;
+
+        if(inputName.length === 0 || inputCallsign.length === 0) {
+            alert("Please Enter Your Name and Call Sign");
+            return;
+        }
+
+
+        // 1. Load the PDF containing form fields (must be served over http/https, not file://)
+        const existingPdfBytes = await fetch(template_url).then(res => res.arrayBuffer());
+        const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
+
+        // 2. Get the form and fill fields by their exact internal names
+        pdfDoc.setTitle(pdf_title);
+        const form = pdfDoc.getForm();
+        const nameField = form.getTextField(field_name);
+
+        nameField.setText(certificateText);
+        nameField.setAlignment(PDFLib.TextAlignment.Center);
+
+        // 3. Flatten the form so fields become static, uneditable text
+        form.flatten();
+
+        // 4. Save and trigger download
+        const pdfBytes = await pdfDoc.save();
+        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = download_file_name;
+        link.click();
+    });
+</script>
+
+</body>
+</html>
